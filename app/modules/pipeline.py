@@ -1,3 +1,4 @@
+from app.allocation.pipeline import run_allocation
 from app.business import DomainIssue
 from app.intake.service import inspect
 from app.modules.calculate import compute
@@ -26,8 +27,17 @@ def evaluate(rows, stage):
 
 def run(data, stage=5):
     intake = inspect(data)
-    output = {"intake": {k: v for k, v in intake.items() if k != "rows"}}
+    output = {
+        "mode": intake["shape"],
+        "intake": {k: v for k, v in intake.items() if k not in ("rows", "shape")},
+    }
     if stage == 1:
+        return output
+    if intake["shape"] == "allocation":
+        cases = run_allocation(intake, stage)
+        output["cases"] = cases
+        if stage >= 5:
+            output["balance"] = balance(intake, cases, allocation=True)
         return output
     cases = [evaluate(rows, stage) for _, rows in case_groups(intake["rows"])]
     output["cases"] = cases

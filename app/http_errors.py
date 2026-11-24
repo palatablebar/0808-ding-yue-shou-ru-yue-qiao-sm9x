@@ -17,6 +17,19 @@ LABELS = {
     "UNRESOLVED_ISSUES": "存在待处理差异",
     "SAMPLE_UNKNOWN": "样例不存在",
     "STAGE_UNKNOWN": "处理阶段不存在",
+    "CONTRACT_MISSING": "缺少集团合同收入记录",
+    "CONTRACT_NOT_SINGLE": "集团合同收入只能保留一份",
+    "CONTRACT_AMOUNT_ZERO": "合同收入必须为正数",
+    "INVALID_PERIOD": "结算窗口起止时刻无效",
+    "ASSIGN_INVALID_SPAN": "归属区间结束时刻必须晚于开始时刻",
+    "WINDOW_BREACH": "归属区间超出合同结算窗口",
+    "ASSIGN_OVERLAP": "同一席位存在重叠归属，已列出全部参与记录",
+    "COVERAGE_GAP": "席位归属出现断档，未覆盖完整结算窗口",
+    "SEAT_MISSING": "合同席位缺少部门归属记录",
+    "SEAT_RATE_INDIVISIBLE": "合同收入无法按席位整数分摊",
+    "ALLOCATION_MISMATCH": "部门承担金额之和与合同收入对账不一致",
+    "BAD_SEAT": "席位标识不符合字段规则",
+    "BAD_DEPARTMENT": "部门名称不符合字段规则",
 }
 
 

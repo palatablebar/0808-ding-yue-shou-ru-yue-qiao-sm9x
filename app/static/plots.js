@@ -15,14 +15,32 @@ function fill(layer, value, max, label) {
 
 export function visualize(report, selected) {
   const target = document.querySelector('#visual');
-  const row = report.cases?.find(item=>item.case===selected && item.measure);
   target.replaceChildren();
+  if (report.mode === 'allocation') {
+    renderAllocation(target, report, selected);
+    return;
+  }
+  const row = report.cases?.find(item=>item.case===selected && item.measure);
   if (!row) { target.append(element('p','该分组暂无计算值')); return; }
-  const {evidence:e, value, expected, unit} = row.measure;
-  render(target, e, value, expected, unit);
+  const {evidence:e, value, unit} = row.measure;
+  render(target, e, value, unit);
 }
 
-function render(target,e,value,expected,unit) {
+function renderAllocation(target, report, selected) {
+  const row = report.cases?.find(item=>item.case===selected && item.allocation);
+  if (!row) { target.append(element('p','该合同暂无归属结果')); return; }
+  const a = row.allocation;
+  const maximum = Math.max(1, ...a.departments.map(d=>d.amount_cents));
+  const shelf = zone(target,'bridge-columns');
+  for (const d of a.departments) {
+    const col = zone(shelf,'bridge-tower');
+    fill(col, d.amount_cents, maximum, `${d.amount_cents}`);
+    col.append(element('span', d.department));
+  }
+  zone(target,'bridge-total',`部门合计 ${a.department_total_cents} / 合同收入 ${a.revenue_cents} 分`);
+}
+
+function render(target,e,value,unit) {
   const items=[['新增',e.new_cents],['扩张',e.expansion_cents],['收缩',e.contraction_cents],['流失',e.churn_cents]];
   const shelf=zone(target,'bridge-columns');
   const maximum=Math.max(1,...items.map(([,n])=>n));

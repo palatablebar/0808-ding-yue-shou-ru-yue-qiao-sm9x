@@ -1,0 +1,9 @@
+record,case,kind,minute,mrr_cents,sequence,note,seat,department
+CT1001,G10,contract,0,1800000,43200,集团合同唯一收入,,
+AS1001,G10,assign,0,0,23040,席位S1上半月归属销售部,S1,销售部
+AS1002,G10,assign,23040,0,43200,月中转移后归属交付部,S1,交付部
+AS1003,G10,assign,0,0,43200,席位S2整月归属销售部,S2,销售部
+AS1004,G10,assign,0,0,14400,席位S3首十日归属客服部,S3,客服部
+AS1005,G10,assign,14400,0,43200,席位S3其余时间归属交付部,S3,交付部
+CT2001,G20,contract,0,600000,43200,第二份集团合同唯一收入,,
+AS2001,G20,assign,0,0,43200,席位S4整月归属研发部,S4,研发部
